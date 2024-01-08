@@ -1,44 +1,33 @@
-import random, os, time
+import random
 
-listOfWords = ["apple", "orange", "grapes", "pear"]
-letterPicked = []
-lives = 6
+listOfWords = [
+  "british", "suave", "integrity", "accent", "evil", "genius", "Downton"
+]
 
-word = random.choice(listOfWords)
+lettersUsed = []
+wordChosen = random.choice(listOfWords)
+print(wordChosen)
+wrongGuess = 0
+print_word = [len(wordChosen) * " _ "]
+print(print_word)
 
 while True:
-  time.sleep(1)
-  os.system("clear")
-  letter = input("Choose a letter: ").lower()
-  
-  if letter in letterPicked:
-    print("You've tried that before")
-    continue
-    
-  letterPicked.append(letter)
-  
-  if letter in word:
-    print("You found a letter")
+  userGuess = input("Type in a letter > ").strip().lower()
+  lettersUsed.append(userGuess)
+
+  if userGuess in wordChosen:
+    print("Correct Guess!")
   else:
-    print("Nope, not in there")
-    lives -= 1
-  
-  allLetters = True
-  print()
-  for i in word:
-    if i in letterPicked:
-      print(i, end="") #print hack
+    wrongGuess += 1
+    print("Wrong Guess")
+
+  # separate printing hangman from lives
+  for each_right_guess in wordChosen:
+    if each_right_guess in lettersUsed:
+      print(each_right_guess, end="")
     else:
       print("_", end="")
-      allLetters = False
-  print()
 
-  if allLetters:
-    print(f"You won with {lives} left!")
+  if wrongGuess > 6:
+    print("You lose! ")
     break
-
-  if lives<=0:
-    print(f"You ran out of lives! The answer was {word}")
-    break
-  else:
-    print(f"Only {lives} left")
