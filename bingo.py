@@ -19,3 +19,20 @@ for i in range(3):
   print(f"{bingo[i][0]:^5} | {bingo[i][1]:^5} | {bingo[i][2]:^5}")
   if i < 2:
     print("---------------------")
+
+take = 0
+while True:
+  your_num = int(input("What number comes up next?").strip())
+  for each_row in bingo:
+    if your_num in each_row:
+      each_row[each_row.index(your_num)] = "X"
+      take += 1
+
+  for i in range(3):
+    print(f"{bingo[i][0]:^5} | {bingo[i][1]:^5} | {bingo[i][2]:^5}")
+    if i < 2:
+      print("---------------------")
+
+  if take == 8:
+    print("You have won")
+    break
