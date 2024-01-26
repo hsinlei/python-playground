@@ -1,5 +1,8 @@
 todo = []
 
+f = open("todo.txt", "r")
+todo = eval(f.read())
+f.close()
 
 def prettyPrint(list, prio):
   count = 0
@@ -44,5 +47,11 @@ while True:
   elif menu.strip().lower() == "remove":
     prettyPrint(todo, "all")
     remove_option = int(input("Which to do do you want to remove?"))
-    todo.remove(todo[remove_option])
+    for rows in todo:
+      if remove_option in rows:
+        todo.remove(todo[remove_option])
     prettyPrint(todo, "all")
+
+f = open("todo.txt", "w")
+f.write(str(todo))
+f.close()
