@@ -1,8 +1,15 @@
+import os, random
+
 todo = []
 
-f = open("todo.txt", "r")
-todo = eval(f.read())
-f.close()
+fileExists = True
+try:
+  f = open("to.do", "r")
+  todo = eval(f.read())
+  f.close()
+except:
+  fileExists = False
+
 
 def prettyPrint(list, prio):
   count = 0
@@ -52,6 +59,14 @@ while True:
         todo.remove(todo[remove_option])
     prettyPrint(todo, "all")
 
-f = open("todo.txt", "w")
-f.write(str(todo))
-f.close()
+  if fileExists:
+    try:
+      os.mkdir("backups")
+    except:
+      pass
+    name = f"backup{random.randint(1,1000)}.txt"
+    os.popen(f"cp to.do backups/{name}")
+
+  f = open("to.do", "w")
+  f.write(str(todo))
+  f.close()
